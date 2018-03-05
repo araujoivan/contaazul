@@ -1,53 +1,57 @@
 package com.nasa.project.robot.controller;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+
 import com.nasa.project.robot.dto.MarsResponseDTO;
 import com.nasa.project.robot.service.RobotService;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.Test;
-import static org.mockito.Mockito.*;
-import org.springframework.http.ResponseEntity;
-import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.get;
-import static org.springframework.test.util.ReflectionTestUtils.setField;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 /**
  * @author Eder Crespo
  * @email  araujo.ivan@hotmail.com
  */
+
+@RunWith(SpringRunner.class)
+@WebMvcTest(RobotControllerTest.class)
 public class RobotControllerTest {
     
+    @MockBean
     RobotService robotService;
     
     @Autowired
-    private RobotController robotController;
-
-    @Before
-    public void setUp() {
-        robotService = mock(RobotService.class);
-        setField(robotController, "robotService", robotService);
-    }
-    
+    private MockMvc mockMvc;
+  
     @Test
-    public void getMarsResponse() {
+    public void getMarsResponse() throws Exception {
         
-//        String codes = "MMMRM";
-//        
-//        MarsResponseDTO dto = new MarsResponseDTO();
-//        
-//        dto.setX(1);
-//        dto.setY(3);
-//        dto.setDirection("E");
-//         
-//        when(robotService.executeMovementCodes(codes)).thenReturn(dto);
-//        
-//        ResponseEntity<String> response = (ResponseEntity<String>) get("localhost:8080/rest/mars", String.class);
-//        
-//        verify(robotService, times(1)).executeMovementCodes(codes);
-//        assertTrue(response.getStatusCode().is2xxSuccessful());
-//        assertFalse(response.getBody().isEmpty());
+        MarsResponseDTO dtoResponse = new MarsResponseDTO();
         
+        dtoResponse.setDirection("N");
+        dtoResponse.setX(0);
+        dtoResponse.setY(0);
+        
+        String movementCodes = "MMML";
+        
+        given(robotService.executeMovementCodes(movementCodes)).willReturn(dtoResponse);
+        
+        mockMvc.perform(post("/rest/mars")
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(1)))
+            .andExpect(jsonPath("$[0].name", is("MMLL")));
     }
 }
