@@ -1,22 +1,18 @@
 ## The Challenge
 
 	A team of robots must be placed by NASA to explore a terrain on Mars.
-	This terrain, which is rectangular, needs to be navigated by the robots in such a way that 
-        their coupled cameras can get a complete view of the region, sending those images back to Earth.
+	This terrain, which is rectangular, needs to be navigated by the robots in such a way that their coupled cameras can get a complete view of the region, 
+	sending those images back to Earth.
 
-	The position of each robot is represented by the combination of Cartesian coordinates (x, y) 
-        and a letter, which can represent one of four orientations: NORTH, SOUTH, EAST and WEST. To 
-        simplify navigation, the "Martian" region to be explored was subdivided into rectangular subregions.
-	A valid position of a robot would be (0, 0, N), which means that the robot is positioned in the 
-        lower left corner of the terrain, facing north. To control each robot, NASA sends a simple string, 
-        which can contain the letters 'L', 'R' and 'M'. The letters 'L' and 'R' cause the robot to rotate on 
-	its own axis 90 degrees to the left or right, respectively, without moving from its current position. 
-        The letter 'M' causes the robot to move forward.
-	Assume that a robot moves to the NORTH in relation to the y-axis. That is, a step to the NORTH of the 
-        position (x, y), is the position (x, y + 1). Example: If the robot is in position (0,0, N), the command 
-        "MML" will get it to the position (0.2, W). This program allows NASA engineers to send commands to the 
-        Robot and know where it is. Engineers will run tests on their software to ensure that it behaves the 
-        way it expects before sending the Robot to Mars.
+	The position of each robot is represented by the combination of Cartesian coordinates (x, y) and a letter, which can represent one of four orientations: 
+	NORTH, SOUTH, EAST and WEST. To simplify navigation, the "Martian" region to be explored was subdivided into rectangular subregions.
+	A valid position of a robot would be (0, 0, N), which means that the robot is positioned in the lower left corner of the terrain, facing north.
+	To control each robot, NASA sends a simple string, which can contain the letters 'L', 'R' and 'M'. The letters 'L' and 'R' cause the robot to rotate on 
+	its own axis 90 degrees to the left or right, respectively, without moving from its current position. The letter 'M' causes the robot to move forward.
+	Assume that a robot moves to the NORTH in relation to the y-axis. That is, a step to the NORTH of the position (x, y), is the position (x, y + 1)
+	Example: If the robot is in position (0,0, N), the command "MML" will get it to the position (0.2, W)
+	This program allows NASA engineers to send commands to the Robot and know where it is. Engineers will run tests on their software to ensure that 
+	it behaves the way it expects before sending the Robot to Mars.
 
 ### Requirements:
 
