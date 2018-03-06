@@ -22,11 +22,8 @@ public class RobotController
 
     /*
      * NOTE:
-     * 
-     *     In this case I think it would be more apropriated using a get request 
-     *     instead of using a post one.
-     *     
-     *     Suggestion for walking all the borders : MMMMMRMMMMMRMMMMMRMMMMMR
+     *    
+     *     Suggestion for walking all the borders : MMMMRMMMMRMMMMRMMMMR
      *
      */ 
     @RequestMapping(value = "/mars/{codes}")

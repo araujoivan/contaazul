@@ -10,8 +10,8 @@ public class Terrain {
     
     private final static int LOWER_X = 0;
     private final static int LOWER_Y = 0;
-    private final static int UPPER_X = 5;
-    private final static int UPPER_Y = 5;
+    private final static int UPPER_X = 4;
+    private final static int UPPER_Y = 4;
     
     public static boolean covers(Position position) {
         return (position.getX() >= LOWER_X && position.getX() <= UPPER_X) &&
