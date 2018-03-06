@@ -8,6 +8,6 @@ public class InvalidMovementCodeException
     extends RuntimeException {
     
     public InvalidMovementCodeException() {
-        super("Invalid movement code!");
+        super("Invalid command!");
     }
 }

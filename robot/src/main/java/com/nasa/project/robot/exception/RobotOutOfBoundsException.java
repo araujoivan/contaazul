@@ -13,6 +13,6 @@ public class RobotOutOfBoundsException
     extends RuntimeException {  
     
     public RobotOutOfBoundsException() {
-        super("Robot reached an invalid position on Mars terrain!");
+        super("Invalid position!");
     }
 }
