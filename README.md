@@ -14,28 +14,28 @@
 	This program allows NASA engineers to send commands to the Robot and know where it is. Engineers will run tests on their software to ensure that 
 	it behaves the way it expects before sending the Robot to Mars.
 
-	### Requirements:
+### Requirements:
 
-		 - The terrain should be started with 5x5 positions;
-		 - The robot starts at the coordinate (0,0, N);
-		 - It should be possible to send a command to the Robot that returns its final position;
-		 - The Robot can not move outside the specified area;
-		 - You should not save robot status for later reference;
+- The terrain should be started with 5x5 positions;
+- The robot starts at the coordinate (0,0, N);
+- It should be possible to send a command to the Robot that returns its final position;
+- The Robot can not move outside the specified area;
+- You should not save robot status for later reference;
 
-	### Some test scenarios:
+### Some test scenarios:
 
-		 - Movement with right turns:
-			- curl -s -request POST http://localhost:8080/rest/mars/MMRMMRMM
-			- Expected output: (2, 0, S)
-		 - Left movement:
-			- Entry: curl -s -request POST  http://localhost:8080/rest/mars/MML
-			- Expected output: (0, 2, W)
-		 - Repetition of requisition with left movement:
-			- Entry: curl -s -request POST http://localhost:8080/rest/mars/MML
-			- Expected output: (0, 2, W)
-		 - Invalid command:
-			- curl -s --request POST  http://localhost:8080/rest/mars/AAA
-			- Expected output: 400 Bad Request
-		 - Invalid position:
-			- curl -s -request POST  http://localhost:8080/rest/mars/MMMMMMMMMMMMMMMMMMMMMMMM
-			- Expected output: 400 Bad Request
+- Movement with right turns:
+- curl -s -request POST http://localhost:8080/rest/mars/MMRMMRMM
+- Expected output: (2, 0, S)
+- Left movement:
+- Entry: curl -s -request POST  http://localhost:8080/rest/mars/MML
+- Expected output: (0, 2, W)
+- Repetition of requisition with left movement:
+- Entry: curl -s -request POST http://localhost:8080/rest/mars/MML
+- Expected output: (0, 2, W)
+- Invalid command:
+- curl -s --request POST  http://localhost:8080/rest/mars/AAA
+- Expected output: 400 Bad Request
+- Invalid position:
+- curl -s -request POST  http://localhost:8080/rest/mars/MMMMMMMMMMMMMMMMMMMMMMMM
+- Expected output: 400 Bad Request
