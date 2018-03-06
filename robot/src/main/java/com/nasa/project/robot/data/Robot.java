@@ -1,8 +1,8 @@
-package com.nasa.project.robot.business.data;
+package com.nasa.project.robot.data;
 
-import com.nasa.project.robot.business.data.position.NorthPosition;
-import com.nasa.project.robot.business.data.position.Position;
-import com.nasa.project.robot.business.data.position.StartPosition;
+import com.nasa.project.robot.data.position.NorthPosition;
+import com.nasa.project.robot.data.position.Position;
+import com.nasa.project.robot.data.position.StartPosition;
 
 /**
  * @author Eder Crespo

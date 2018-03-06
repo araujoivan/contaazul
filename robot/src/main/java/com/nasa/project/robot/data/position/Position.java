@@ -1,4 +1,4 @@
-package com.nasa.project.robot.business.data.position;
+package com.nasa.project.robot.data.position;
 
 /**
  * @author Eder Crespo

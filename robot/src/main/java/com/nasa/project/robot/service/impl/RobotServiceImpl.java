@@ -1,9 +1,9 @@
 package com.nasa.project.robot.service.impl;
 
-import com.nasa.project.robot.business.data.Robot;
-import com.nasa.project.robot.business.data.Terrain;
-import com.nasa.project.robot.business.data.position.Position;
-import com.nasa.project.robot.business.data.position.PositionWrapper;
+import com.nasa.project.robot.data.Robot;
+import com.nasa.project.robot.data.Terrain;
+import com.nasa.project.robot.data.position.Position;
+import com.nasa.project.robot.data.position.PositionWrapper;
 import com.nasa.project.robot.constant.Constants;
 import com.nasa.project.robot.dto.MarsResponseDTO;
 import com.nasa.project.robot.exception.InvalidMovementCodeException;

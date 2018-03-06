@@ -1,4 +1,4 @@
-package com.nasa.project.robot.business.data.position;
+package com.nasa.project.robot.data.position;
 
 import com.nasa.project.robot.constant.Constants;
 
@@ -6,26 +6,26 @@ import com.nasa.project.robot.constant.Constants;
  * @author Eder Crespo
  * @email  araujo.ivan@hotmail.com
  */
-public class WestPosition 
+public class SouthPosition 
     extends PositionDecorator {
 
-    public WestPosition(Position newPosition) {
+    public SouthPosition(Position newPosition) {
         super(newPosition); 
-        step = (newPosition instanceof WestPosition) ? 1 : 0;
+        step = (newPosition instanceof SouthPosition) ? 1 : 0;
     }
-
+    
     @Override
     public Integer getX() {
-        return position.getX() - step;
+        return position.getX();
     }
     
     @Override
     public Integer getY() {
-        return position.getY();
+        return position.getY() - step;
     }
     
     @Override
     public String getDirections() {
-       return position.getDirections().concat(Constants.WEST);
-    } 
+       return position.getDirections().concat(Constants.SOUTH);
+    }
 }

@@ -18,9 +18,8 @@ public class RobotController
     extends MainController {
     
     @Autowired
-    RobotService robotService;
+    private RobotService robotService;
 
-    
     /*
      * NOTE:
      * 
@@ -29,10 +28,9 @@ public class RobotController
      *     
      *     Suggestion for walking all the borders : MMMMMRMMMMMRMMMMMRMMMMMR
      *
-     */
+     */ 
     @PostMapping(value = "/mars/{codes}")
-    public ResponseEntity getMarsResponse(@PathVariable String codes) {
-        
+    public ResponseEntity getMarsResponse(@PathVariable String codes) {        
         try {
             return new ResponseEntity(robotService.executeMovementCodes(codes).toString(), HttpStatus.OK);
         } catch(Exception e) {

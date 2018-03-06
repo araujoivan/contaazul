@@ -1,57 +1,94 @@
 package com.nasa.project.robot.controller;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
+import com.nasa.project.robot.constant.Constants;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.mockito.Mockito.when;
 
 import com.nasa.project.robot.dto.MarsResponseDTO;
+import com.nasa.project.robot.exception.InvalidMovementCodeException;
+import com.nasa.project.robot.exception.RobotOutOfBoundsException;
 import com.nasa.project.robot.service.RobotService;
+
+import java.io.IOException;
+import org.junit.Test;
+import org.springframework.test.web.servlet.MockMvc;
+import org.junit.Before;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 
 /**
  * @author Eder Crespo
- * @email  araujo.ivan@hotmail.com
+ * @email araujo.ivan@hotmail.com
  */
-
-@RunWith(SpringRunner.class)
-@WebMvcTest(RobotControllerTest.class)
 public class RobotControllerTest {
-    
-    @MockBean
-    RobotService robotService;
-    
-    @Autowired
+
     private MockMvc mockMvc;
-  
+
+    @InjectMocks
+    private RobotController controller;
+
+    @Mock
+    private RobotService service;
+
+    @Before
+    public void setUp() throws IOException {
+
+        MockitoAnnotations.initMocks(this);
+
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+    }
+
     @Test
-    public void getMarsResponse() throws Exception {
-        
-        MarsResponseDTO dtoResponse = new MarsResponseDTO();
-        
-        dtoResponse.setDirection("N");
-        dtoResponse.setX(0);
-        dtoResponse.setY(0);
-        
+    public void getMarsSuccesResponse() throws Exception {
+
+        // ARRANGE
+        MarsResponseDTO expectedResponse = new MarsResponseDTO();
+
+        expectedResponse.setDirection(Constants.NORTH);
+        expectedResponse.setX(0);
+        expectedResponse.setY(0);
+
         String movementCodes = "MMML";
+
+        when(service.executeMovementCodes(movementCodes))
+                .thenReturn(expectedResponse);
+
+        // ACT & ASSERT
+        mockMvc.perform(post("/rest/mars/".concat(movementCodes)))
+                .andExpect(status().isOk())
+                .andExpect(content().string(expectedResponse.toString()));
+    }
+
+    @Test
+    public void getMarsBadRequestResponseWithOutOfBoundsException() throws Exception {
         
-        given(robotService.executeMovementCodes(movementCodes)).willReturn(dtoResponse);
-        
-        mockMvc.perform(post("/rest/mars")
-            .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$", hasSize(1)))
-            .andExpect(jsonPath("$[0].name", is("MMLL")));
+        // ARRANGE
+        String movementCodes = "MMMMMMMMMMMMMMMM";
+
+        when(service.executeMovementCodes(movementCodes))
+                .thenThrow(new RobotOutOfBoundsException());
+
+        // ACT & ASSERT
+        mockMvc.perform(post("/rest/mars/".concat(movementCodes)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void getMarsBadRequestResponseWithInvalidMovementCodesException() throws Exception {
+
+        // ARRANGE
+        String movementCodes = "XXINVALIDCODESXX";
+
+        when(service.executeMovementCodes(movementCodes))
+                .thenThrow(new InvalidMovementCodeException());
+
+        // ACT & ASSERT
+        mockMvc.perform(post("/rest/mars/".concat(movementCodes)))
+                .andExpect(status().isBadRequest());
     }
 }

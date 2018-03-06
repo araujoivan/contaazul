@@ -1,4 +1,4 @@
-package com.nasa.project.robot.business.data.position;
+package com.nasa.project.robot.data.position;
 
 import com.nasa.project.robot.constant.Constants;
 

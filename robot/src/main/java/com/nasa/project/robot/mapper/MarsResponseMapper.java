@@ -1,6 +1,6 @@
 package com.nasa.project.robot.mapper;
 
-import com.nasa.project.robot.business.data.position.Position;
+import com.nasa.project.robot.data.position.Position;
 import com.nasa.project.robot.dto.MarsResponseDTO;
 
 /**

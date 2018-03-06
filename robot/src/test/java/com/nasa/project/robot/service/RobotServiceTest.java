@@ -1,15 +1,13 @@
 package com.nasa.project.robot.service;
 
+import com.nasa.project.robot.constant.Constants;
 import com.nasa.project.robot.dto.MarsResponseDTO;
 import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
-import static org.mockito.ArgumentMatchers.any;
-import org.mockito.Mock;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 /**
  * @author Eder Crespo
@@ -19,28 +17,29 @@ import static org.mockito.Mockito.verify;
 
 public class RobotServiceTest {
     
-    @Mock
-    private RobotService robotService;
+    private RobotService service;
     
     @Before
     public void setUp() throws IOException {
-        robotService = mock(RobotService.class);	
+        service = mock(RobotService.class);	
     }
 
     @Test
     public void executeMovementCodes() {
         
+        // ARRANGE
         String codes = "MMM";
                 
-        MarsResponseDTO DTOReturned = new MarsResponseDTO();
+        MarsResponseDTO expectedDTO = new MarsResponseDTO();
         
-        DTOReturned.setX(0);
-        DTOReturned.setY(3);
-        DTOReturned.setDirection("N");
+        expectedDTO.setX(0);
+        expectedDTO.setY(3);
+        expectedDTO.setDirection(Constants.NORTH);
         
-        doReturn(DTOReturned).when(robotService).executeMovementCodes(codes);
+        doReturn(expectedDTO).when(service).executeMovementCodes(codes);
         
-        assertEquals(DTOReturned, robotService.executeMovementCodes(codes));
+        // ACT & ASSERT
+        assertEquals(expectedDTO, service.executeMovementCodes(codes));
   
     }
     
